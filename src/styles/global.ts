@@ -6,4 +6,22 @@ export default createGlobalStyle`
 		padding: 0;
 		box-sizing: border-box;
 	}
+
+	body {
+		background-color: var(--light-gray);
+	}
+
+	:root {
+		--white: #FFFFFF;
+		--light-gray: #718096;
+		--dark-gray: #4A5568;
+		--orange: #DD6B20;
+
+		--size-xs: 4px;
+		--size-sm: 8px;
+		--size-md: 16px;
+		--size-lg: 24px;
+		--size-xl: 32px;
+		--size-xl2: 48px;
+	}
 `;
