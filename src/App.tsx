@@ -2,9 +2,13 @@ import React from 'react';
 
 import { Main } from 'components/Main';
 
+import * as S from 'styles/globalElements';
+
 function App() {
   return (
-    <Main />
+		<S.Container>
+    	<Main />
+		</S.Container>
   );
 }
 
