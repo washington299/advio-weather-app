@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Main } from 'components/Main';
+import { Header } from 'components/Header';
 
 import * as S from 'styles/globalElements';
 
 function App() {
   return (
 		<S.Container>
-    	<Main />
+    	<Header />
 		</S.Container>
   );
 }
