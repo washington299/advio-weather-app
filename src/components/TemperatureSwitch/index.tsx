@@ -7,10 +7,11 @@ import * as S from './styles';
 const Switch = WrongSwitch as any;
 
 type TemperatureSwitchProps = {
+	disabled: boolean;
 	handleSwitchChange: (value: boolean) => void;
 };
 
-export const TemperatureSwitch = ({ handleSwitchChange }: TemperatureSwitchProps) => {
+export const TemperatureSwitch = ({ disabled, handleSwitchChange }: TemperatureSwitchProps) => {
 	const [checked, setChecked] = useState(false);
 
 	const handleChange = (nextChecked: boolean) => {
@@ -24,6 +25,7 @@ export const TemperatureSwitch = ({ handleSwitchChange }: TemperatureSwitchProps
 			<Switch
 				id='switch'
 				className="switch"
+				disabled={disabled}
 				checked={checked}
 				onChange={handleChange}
 				offColor="#4A5568"

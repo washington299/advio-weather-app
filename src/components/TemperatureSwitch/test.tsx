@@ -7,7 +7,7 @@ describe('<TemperatureSwitch />', () => {
 	it('Should call handleSwitchChange with correct value', () => {
 		const mockHandleSwitchChange = jest.fn();
 
-		render(<TemperatureSwitch handleSwitchChange={mockHandleSwitchChange} />);
+		render(<TemperatureSwitch disabled={false} handleSwitchChange={mockHandleSwitchChange} />);
 
 		fireEvent.click(screen.getByText(/°F/i));
 
