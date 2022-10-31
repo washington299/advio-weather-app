@@ -20,4 +20,12 @@ describe('<Main />', () => {
 		expect(screen.getByRole('combobox')).toBeInTheDocument();
 		expect(screen.getByRole('switch')).toBeInTheDocument();
 	});
+
+	it('Should dispatch mutate when select options changes', () => {
+		globalRender(<Main />);
+
+		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
+
+		expect(mutate).toBeCalled();
+	});
 });
