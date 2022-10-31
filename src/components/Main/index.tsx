@@ -25,7 +25,7 @@ export const Main = () => {
 			</S.HeaderWrapper>
 
 			<S.DataWrapper>
-				{mutation.isLoading ? <GE.Spinner /> : (
+				{mutation.isLoading ? <GE.Spinner role="spinbutton" /> : (
 					<>
 						{!!mutation?.data ? (
 							<S.WeatherNumber>

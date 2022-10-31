@@ -21,11 +21,24 @@ describe('<Main />', () => {
 		expect(screen.getByRole('switch')).toBeInTheDocument();
 	});
 
-	it('Should dispatch mutate when select options changes', () => {
+	it('Should dispatch mutate when select options changes', async () => {
 		globalRender(<Main />);
 
 		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
 
 		expect(mutate).toBeCalled();
+	});
+
+	it('Should show a spinner when react-query isLoading is true', () => {
+		const isLoading = jest.fn();
+		useGetCityWeather.mockImplementation(() => ({
+			isLoading,
+		}));
+
+		globalRender(<Main />);
+
+		isLoading.mockImplementationOnce(() => true);
+
+		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
 	});
 });
