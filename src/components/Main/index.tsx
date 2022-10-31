@@ -6,8 +6,11 @@ import { TemperatureSwitch } from 'components/TemperatureSwitch';
 import { useGetCityWeather } from 'services/queries';
 
 import * as S from './styles';
+import * as GE from 'styles/globalElements';
 
 export const Main = () => {
+	const [isCelsius, setIsCelsius] = useState(true);
+
 	const mutation = useGetCityWeather();
 
 	const handleSelectChange = (selectedCity: string) => {
@@ -16,12 +19,24 @@ export const Main = () => {
 
 	return (
 		<S.Content>
-			<S.Wrapper>
+			<S.HeaderWrapper>
 				<SelectCities handleSelectChange={handleSelectChange} />
 				<TemperatureSwitch disabled={!mutation?.data} handleSwitchChange={() => {}} />
-			</S.Wrapper>
+			</S.HeaderWrapper>
 
-			{mutation.isLoading && <div>Loading...</div>}
+			<S.DataWrapper>
+				{mutation.isLoading ? <GE.Spinner /> : (
+					<>
+						{!!mutation?.data ? (
+							<S.WeatherNumber>
+								{Math.floor(mutation.data?.main?.temp)} {isCelsius ? '°C' : '°F'}
+							</S.WeatherNumber>
+						) : (
+							<S.DefaultText>No city selected.</S.DefaultText>
+						)}
+					</>
+				)}
+			</S.DataWrapper>
 		</S.Content>
 	);
 };
