@@ -5,3 +5,18 @@ export const Container = styled.div`
 	max-width: 1080px;
 	margin: auto;
 `;
+
+export const Spinner = styled.div`
+	width: var(--size-xl2);
+	height: var(--size-xl2);
+	border: var(--size-xs) solid rgba(0, 0, 0, 0.1);
+	border-left-color: var(--orange);
+	border-radius: 50%;
+	animation: spin 0.8s linear infinite;
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+`;
