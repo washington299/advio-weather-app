@@ -29,6 +29,20 @@ describe('<Main />', () => {
 		expect(mutate).toBeCalled();
 	});
 
+	it('Should toggle between °C and °F when switch changes', () => {
+		globalRender(<Main />);
+
+		expect(screen.getByText(/No city selected/i)).toBeInTheDocument();
+
+		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
+
+		expect(screen.getByText(/°C/i)).toBeInTheDocument();
+
+		fireEvent.click(screen.getByRole('switch'));
+
+		expect(screen.getByText(/°F/i)).toBeInTheDocument();
+	});
+
 	it('Should show a spinner when react-query isLoading is true', () => {
 		const isLoading = jest.fn();
 		useGetCityWeather.mockImplementation(() => ({

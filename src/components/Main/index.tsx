@@ -17,11 +17,15 @@ export const Main = () => {
 		mutation.mutate(selectedCity);
 	};
 
+	const handleSwitchChange = (value: boolean) => {
+		setIsCelsius(!value);
+	};
+
 	return (
 		<S.Content>
 			<S.HeaderWrapper>
 				<SelectCities handleSelectChange={handleSelectChange} />
-				<TemperatureSwitch disabled={!mutation?.data} handleSwitchChange={() => {}} />
+				<TemperatureSwitch disabled={!mutation?.data} handleSwitchChange={handleSwitchChange} />
 			</S.HeaderWrapper>
 
 			<S.DataWrapper>
