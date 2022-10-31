@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { api } from 'services/config';
 
@@ -8,5 +8,5 @@ const getCityWeather = async (city: string) => {
 	return data;
 };
 
-export const useGetCityWeather = (city: string) =>
-	useQuery(['city', city], () => getCityWeather(city));
+export const useGetCityWeather = () =>
+	useMutation((city: string) => getCityWeather(city));
