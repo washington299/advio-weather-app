@@ -2,6 +2,8 @@ import React from 'react';
 
 import { formatSunDate } from 'utils/formatSunDate';
 
+import * as S from './styles';
+
 type SunDataProps = {
 	sunrise: number;
 	sunset: number;
@@ -9,9 +11,9 @@ type SunDataProps = {
 
 export const SunData = ({ sunrise, sunset }: SunDataProps) => {
 	return (
-		<div>
+		<S.Content>
 			<p>Sunrise: {formatSunDate(sunrise)}</p>
 			<p>Sunset: {formatSunDate(sunset)}</p>
-		</div>
+		</S.Content>
 	);
 };
