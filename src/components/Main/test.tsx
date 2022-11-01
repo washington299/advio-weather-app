@@ -12,6 +12,15 @@ useGetCityWeather.mockImplementation(() => ({
 	mutate,
 }));
 
+jest.mock("components/WeatherValue", () => {
+	return {
+		__esModule: true,
+		WeatherValue: function Mock() {
+			return <div data-testid="Mock Weathervalue"></div>;
+		},
+	};
+});
+
 describe('<Main />', () => {
 	it('should render Main with correct elements', () => {
 		globalRender(<Main />);
@@ -43,6 +52,19 @@ describe('<Main />', () => {
 		expect(screen.getByText(/°F/i)).toBeInTheDocument();
 	});
 
+	it('Should display correct data when mutation data has a response', () => {
+		const data = jest.fn();
+		useGetCityWeather.mockImplementation(() => ({
+			data,
+		}));
+
+		globalRender(<Main />);
+
+		data.mockImplementation(() => ({ main: { temp: 20 } }));
+
+		expect(screen.getByTestId('Mock Weathervalue')).toBeInTheDocument();
+	});
+
 	it('Should show a spinner when react-query isLoading is true', () => {
 		const isLoading = jest.fn();
 		useGetCityWeather.mockImplementation(() => ({
@@ -51,7 +73,7 @@ describe('<Main />', () => {
 
 		globalRender(<Main />);
 
-		isLoading.mockImplementationOnce(() => true);
+		isLoading.mockImplementation(() => true);
 
 		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
 	});
