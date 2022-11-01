@@ -4,6 +4,7 @@ export const Container = styled.div`
 	width: 100%;
 	max-width: 1080px;
 	margin: auto;
+	padding: 0 var(--size-md);
 `;
 
 export const Spinner = styled.div`
