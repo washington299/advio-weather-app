@@ -12,17 +12,25 @@ import * as GE from 'styles/globalElements';
 
 export const Main = () => {
 	const [isCelsius, setIsCelsius] = useState(true);
+	const [city, setCity] = useState('');
 
 	const mutation = useGetCityWeather();
 
 	const handleSelectChange = (selectedCity: string) => {
-		mutation.mutate(selectedCity);
+		const payload = { city: selectedCity, isCelsius };
+		mutation.mutate(payload);
+
+		setCity(selectedCity);
 	};
 
 	const handleSwitchChange = (value: boolean) => {
+		const payload = { city, isCelsius: !value };
+		mutation.mutate(payload)
+
 		setIsCelsius(!value);
 	};
 
+	console.log(isCelsius)
 	return (
 		<S.Content>
 			<S.HeaderWrapper>

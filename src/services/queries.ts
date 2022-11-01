@@ -8,5 +8,10 @@ const getCityWeather = async (city: string, units = 'metric') => {
 	return data;
 };
 
+type PayloadTypes = {
+	city: string;
+	isCelsius?: boolean;
+};
+
 export const useGetCityWeather = () =>
-	useMutation((city: string) => getCityWeather(city));
+	useMutation((payload: PayloadTypes) => getCityWeather(payload.city, payload.isCelsius ? 'metric': 'imperial'));
