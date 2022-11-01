@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SelectCities } from 'components/SelectCities';
 import { TemperatureSwitch } from 'components/TemperatureSwitch';
 import { WeatherValue } from 'components/WeatherValue';
+import { SunData } from 'components/SunData';
 
 import { useGetCityWeather } from 'services/queries';
 
@@ -35,8 +36,11 @@ export const Main = () => {
 						{!!mutation?.data ? (
 							<>
 								<WeatherValue value={mutation.data?.main?.temp} isCelsius={isCelsius} />
-
-								<div>sunrise</div>
+								<S.Icon
+									src={`http://openweathermap.org/img/wn/${mutation.data?.weather[0]?.icon}@2x.png`}
+									alt="Weather icon"
+								/>
+								<SunData sunrise={mutation.data?.sys?.sunrise} sunset={mutation.data?.sys?.sunset} />
 							</>
 						) : (
 							<S.DefaultText>No city selected.</S.DefaultText>

@@ -14,7 +14,7 @@ export const DataWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 
-	margin-top: calc(var(--size-xl2) * 4);
+	margin-top: calc(var(--size-xl2) * 3);
 `;
 
 export const WeatherNumber = styled.span`
@@ -26,4 +26,8 @@ export const WeatherNumber = styled.span`
 export const DefaultText = styled.p`
 	font-size: var(--size-lg);
 	color: var(--white);
+`;
+
+export const Icon = styled.img`
+	margin-top: var(--size-xl2);
 `;
