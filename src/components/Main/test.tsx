@@ -53,14 +53,11 @@ describe('<Main />', () => {
 	});
 
 	it('Should display correct data when mutation data has a response', () => {
-		const data = jest.fn();
 		useGetCityWeather.mockImplementation(() => ({
-			data,
+			data: { weather: [{ icon: '' }], main: { temp: 20 } },
 		}));
 
 		globalRender(<Main />);
-
-		data.mockImplementation(() => ({ main: { temp: 20 } }));
 
 		expect(screen.getByTestId('Mock Weathervalue')).toBeInTheDocument();
 	});
