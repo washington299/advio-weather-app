@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 
-import { SelectCities } from 'components/SelectCities';
-import { TemperatureSwitch } from 'components/TemperatureSwitch';
-import { WeatherValue } from 'components/WeatherValue';
-import { SunData } from 'components/SunData';
+import { SelectCities, TemperatureSwitch, WeatherValue, SunData } from 'components';
 
 import { useGetCityWeather } from 'services/queries';
 
@@ -30,7 +27,6 @@ export const Main = () => {
 		setIsCelsius(!value);
 	};
 
-	console.log(isCelsius)
 	return (
 		<S.Content>
 			<S.HeaderWrapper>
