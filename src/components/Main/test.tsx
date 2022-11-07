@@ -5,21 +5,17 @@ import { globalRender } from 'tests/helpers';
 
 import { Main } from '.';
 
-const useGetCityWeather = jest.spyOn(require('services/queries'), 'useGetCityWeather');
+const useMutation = jest.spyOn(require('@tanstack/react-query'), 'useMutation');
+
 const mutate = jest.fn();
+let isLoading = false;
+let data: any;
 
-useGetCityWeather.mockImplementation(() => ({
+useMutation.mockImplementation(() => ({
 	mutate,
+	isLoading,
+	data,
 }));
-
-jest.mock("components/WeatherValue", () => {
-	return {
-		__esModule: true,
-		WeatherValue: function Mock() {
-			return <div data-testid="Mock Weathervalue"></div>;
-		},
-	};
-});
 
 describe('<Main />', () => {
 	it('should render Main with correct elements', () => {
@@ -52,25 +48,26 @@ describe('<Main />', () => {
 		expect(screen.getByText(/°F/i)).toBeInTheDocument();
 	});
 
-	it('Should display correct data when mutation data has a response', () => {
-		useGetCityWeather.mockImplementation(() => ({
-			data: { weather: [{ icon: '' }], main: { temp: 20 } },
-		}));
+	it('Should display correct data when mutation data has a response', async () => {
+		data = {
+			weather: [{ icon: '50n' }],
+			main: { temp: 20 },
+			sys: { sunrise: 1667199723, sunset: 1667237886 },
+		};
 
 		globalRender(<Main />);
 
-		expect(screen.getByTestId('Mock Weathervalue')).toBeInTheDocument();
+		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
+
+		expect(screen.getByText('20 °C')).toBeInTheDocument();
+		expect(screen.getByText(/sunrise: 04:02/i)).toBeInTheDocument();
+		expect(screen.getByText(/sunset: 14:38/i)).toBeInTheDocument();
 	});
 
 	it('Should show a spinner when react-query isLoading is true', () => {
-		const isLoading = jest.fn();
-		useGetCityWeather.mockImplementation(() => ({
-			isLoading,
-		}));
+		isLoading = true;
 
 		globalRender(<Main />);
-
-		isLoading.mockImplementation(() => true);
 
 		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
 	});
