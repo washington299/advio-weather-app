@@ -35,17 +35,21 @@ describe('<Main />', () => {
 	});
 
 	it('Should toggle between °C and °F when switch changes', () => {
-		globalRender(<Main />);
+		data = {
+			weather: [{ icon: '50n' }],
+			main: { temp: 20 },
+			sys: { sunrise: 1667199723, sunset: 1667237886 },
+		};
 
-		expect(screen.getByText(/No city selected/i)).toBeInTheDocument();
+		globalRender(<Main />);
 
 		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
 
-		expect(screen.getByText(/°C/i)).toBeInTheDocument();
+		expect(screen.getByText('20 °C')).toBeInTheDocument();
 
 		fireEvent.click(screen.getByRole('switch'));
 
-		expect(screen.getByText(/°F/i)).toBeInTheDocument();
+		expect(screen.getByText('20 °F')).toBeInTheDocument();
 	});
 
 	it('Should display correct data when mutation data has a response', async () => {
