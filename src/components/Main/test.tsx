@@ -5,13 +5,13 @@ import { globalRender } from 'tests/helpers';
 
 import { Main } from '.';
 
-const useMutation = jest.spyOn(require('@tanstack/react-query'), 'useMutation');
+const useGetCityWeather = jest.spyOn(require('services/queries'), 'useGetCityWeather');
 
 const mutate = jest.fn();
 let isLoading = false;
 let data: any;
 
-useMutation.mockImplementation(() => ({
+useGetCityWeather.mockImplementation(() => ({
 	mutate,
 	isLoading,
 	data,
