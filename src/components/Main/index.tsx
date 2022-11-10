@@ -26,7 +26,7 @@ const DataWrapper = styled.div`
 	margin-top: calc(var(--size-xl2) * 3);
 `;
 
-const DefaultText = styled.p`
+const Text = styled.p`
 	font-size: var(--size-lg);
 	color: var(--white);
 `;
@@ -39,15 +39,16 @@ export const Main = () => {
 	const [isCelsius, setIsCelsius] = useState(true);
 	const [city, setCity] = useState('');
 
-	const { data, isFetching } = useGetCityWeather(city);
+	const { data, isFetching, isError } = useGetCityWeather(city);
 
 	const handleSelectChange = (selectedCity: string) => setCity(selectedCity);
 	const handleSwitchChange = (value: boolean) => setIsCelsius(!value);
 
 	let content: React.ReactNode;
 
-	if (!isFetching && !data) { content = <DefaultText>No city selected.</DefaultText> }
+	if (!isFetching && !data) { content = <Text>No city selected.</Text> }
 	if (isFetching) { content = <GE.Spinner role="spinbutton" /> }
+	if (isError) { content = <Text>Ops, something went wrong, please try again.</Text> }
 	if (data) {
 		content = <>
 			<WeatherValue
