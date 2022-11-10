@@ -19,4 +19,10 @@ describe('<TemperatureSwitch />', () => {
 		expect(mockHandleSwitchChange).toHaveBeenCalledTimes(2);
 		expect(mockHandleSwitchChange).toHaveBeenLastCalledWith(false);
 	});
+
+	it('Should disable switch when disabled prop is true', () => {
+		render(<TemperatureSwitch disabled handleSwitchChange={() => {}} />);
+
+		expect(screen.getByRole('switch')).toBeDisabled();
+	});
 });
