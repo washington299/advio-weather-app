@@ -8,10 +8,12 @@ import { Main } from '.';
 const useGetCityWeather = jest.spyOn(require('services/queries'), 'useGetCityWeather');
 
 let isFetching = false;
+let isError = false;
 let data: any;
 
 useGetCityWeather.mockImplementation(() => ({
 	isFetching,
+	isError,
 	data,
 }));
 
@@ -30,6 +32,14 @@ describe('<Main />', () => {
 		globalRender(<Main />);
 
 		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+	});
+
+	it('Should show and error message when react-query isError is true', () => {
+		isError = true;
+
+		globalRender(<Main />);
+
+		expect(screen.getByText('Ops, something went wrong, please try again.')).toBeInTheDocument();
 	});
 
 	it('Should toggle between °C and °F when switch changes', () => {
