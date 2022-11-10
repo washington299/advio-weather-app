@@ -37,46 +37,46 @@ export const Main = () => {
 	const [isCelsius, setIsCelsius] = useState(true);
 	const [city, setCity] = useState('');
 
-	const mutation = useGetCityWeather();
+	const { mutate, data, isLoading } = useGetCityWeather();
 
 	const handleSelectChange = (selectedCity: string) => {
 		const payload = { city: selectedCity, isCelsius };
-		mutation.mutate(payload);
+		mutate(payload);
 
 		setCity(selectedCity);
 	};
 
 	const handleSwitchChange = (value: boolean) => {
 		const payload = { city, isCelsius: !value };
-		mutation.mutate(payload)
+		mutate(payload);
 
 		setIsCelsius(!value);
 	};
+
+	let content: React.ReactNode;
+
+	if (!isLoading && !data) { content = <DefaultText>No city selected.</DefaultText> }
+	if (isLoading) { content = <GE.Spinner role="spinbutton" /> }
+	if (data) {
+		content = <>
+			<WeatherValue value={data?.main?.temp} isCelsius={isCelsius} />
+			<Icon
+				src={`http://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
+				alt="Weather icon"
+			/>
+			<SunData sunrise={data?.sys?.sunrise} sunset={data?.sys?.sunset} />
+		</>
+	}
 
 	return (
 		<Content>
 			<HeaderWrapper>
 				<SelectCities handleSelectChange={handleSelectChange} />
-				<TemperatureSwitch disabled={!mutation?.data} handleSwitchChange={handleSwitchChange} />
+				<TemperatureSwitch disabled={!data} handleSwitchChange={handleSwitchChange} />
 			</HeaderWrapper>
 
 			<DataWrapper>
-				{mutation.isLoading ? <GE.Spinner role="spinbutton" /> : (
-					<>
-						{!!mutation?.data ? (
-							<>
-								<WeatherValue value={mutation.data?.main?.temp} isCelsius={isCelsius} />
-								<Icon
-									src={`http://openweathermap.org/img/wn/${mutation.data?.weather[0]?.icon}@2x.png`}
-									alt="Weather icon"
-								/>
-								<SunData sunrise={mutation.data?.sys?.sunrise} sunset={mutation.data?.sys?.sunset} />
-							</>
-						) : (
-							<DefaultText>No city selected.</DefaultText>
-						)}
-					</>
-				)}
+				{content}
 			</DataWrapper>
 		</Content>
 	);

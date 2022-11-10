@@ -34,6 +34,14 @@ describe('<Main />', () => {
 		expect(mutate).toBeCalled();
 	});
 
+	it('Should show a spinner when react-query isLoading is true', () => {
+		isLoading = true;
+
+		globalRender(<Main />);
+
+		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+	});
+
 	it('Should toggle between °C and °F when switch changes', () => {
 		data = {
 			weather: [{ icon: '50n' }],
@@ -66,13 +74,5 @@ describe('<Main />', () => {
 		expect(screen.getByText('20 °C')).toBeInTheDocument();
 		expect(screen.getByText(/sunrise: 04:02/i)).toBeInTheDocument();
 		expect(screen.getByText(/sunset: 14:38/i)).toBeInTheDocument();
-	});
-
-	it('Should show a spinner when react-query isLoading is true', () => {
-		isLoading = true;
-
-		globalRender(<Main />);
-
-		expect(screen.getByRole('spinbutton')).toBeInTheDocument();
 	});
 });
