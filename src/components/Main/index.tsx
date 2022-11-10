@@ -39,19 +39,15 @@ export const Main = () => {
 	const [isCelsius, setIsCelsius] = useState(true);
 	const [city, setCity] = useState('');
 
-	const { mutate, data, isLoading } = useGetCityWeather();
+	const { data, isFetching } = useGetCityWeather(city);
 
-	const handleSelectChange = (selectedCity: string) => {
-		mutate(selectedCity);
-		setCity(selectedCity);
-	};
-
+	const handleSelectChange = (selectedCity: string) => setCity(selectedCity);
 	const handleSwitchChange = (value: boolean) => setIsCelsius(!value);
 
 	let content: React.ReactNode;
 
-	if (!isLoading && !data) { content = <DefaultText>No city selected.</DefaultText> }
-	if (isLoading) { content = <GE.Spinner role="spinbutton" /> }
+	if (!isFetching && !data) { content = <DefaultText>No city selected.</DefaultText> }
+	if (isFetching) { content = <GE.Spinner role="spinbutton" /> }
 	if (data) {
 		content = <>
 			<WeatherValue

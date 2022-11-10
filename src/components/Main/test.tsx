@@ -7,13 +7,11 @@ import { Main } from '.';
 
 const useGetCityWeather = jest.spyOn(require('services/queries'), 'useGetCityWeather');
 
-const mutate = jest.fn();
-let isLoading = false;
+let isFetching = false;
 let data: any;
 
 useGetCityWeather.mockImplementation(() => ({
-	mutate,
-	isLoading,
+	isFetching,
 	data,
 }));
 
@@ -26,16 +24,8 @@ describe('<Main />', () => {
 		expect(screen.getByRole('switch')).toBeInTheDocument();
 	});
 
-	it('Should dispatch mutate when select options changes', async () => {
-		globalRender(<Main />);
-
-		fireEvent.change(screen.getByRole('combobox'), { target: { value: 'lisbon' } });
-
-		expect(mutate).toBeCalled();
-	});
-
-	it('Should show a spinner when react-query isLoading is true', () => {
-		isLoading = true;
+	it('Should show a spinner when react-query isFetching is true', () => {
+		isFetching = true;
 
 		globalRender(<Main />);
 
