@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { formatTemperatureUnit } from 'utils/formatTemperatureUnit';
+
 import * as S from './styles';
 
 type WeatherValueProps = {
@@ -10,7 +12,7 @@ type WeatherValueProps = {
 export const WeatherValue = ({ value, isCelsius }: WeatherValueProps) => {
 	return (
 		<S.WeatherNumber>
-			{Math.floor(value)} {isCelsius ? '°C' : '°F'}
+			{formatTemperatureUnit(value, isCelsius)}
 		</S.WeatherNumber>
 	);
 };
