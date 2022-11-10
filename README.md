@@ -10,7 +10,7 @@ This app is 100% responsive and has 100% of test coverage.
 - Typescript
 - Styled-component
 - React-query
-- Axios
+- React-error-boundary
 - React-testing-library
 - Jest
 
