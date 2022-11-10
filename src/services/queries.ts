@@ -1,13 +1,16 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { api } from 'services/config';
+import { baseURL } from 'services/config';
 
 import { CityWeatherTypes } from 'types/apiData';
 
 const getCityWeather = async (city: string, units = 'metric'): Promise<CityWeatherTypes> => {
-	const { data } = await api.get(`/weather?appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&q=${city}&units=${units}`);
+	const response = await fetch(
+		`${baseURL}/weather?appid=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}&q=${city}&units=${units}`,
+		{ method: 'GET' }
+	);
 
-	return data;
+	return response.json();
 };
 
 type PayloadTypes = {
