@@ -55,14 +55,14 @@ export const Main = () => {
 	if (data) {
 		content = <>
 			<WeatherValue
-				value={isCelsius ? data?.main?.temp : convertCelsiusToFahrenheit(data?.main?.temp)}
+				value={isCelsius ? data.main.temp : convertCelsiusToFahrenheit(data.main.temp)}
 				isCelsius={isCelsius}
 			/>
 			<Icon
-				src={`http://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
+				src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
 				alt="Weather icon"
 			/>
-			<SunData sunrise={data?.sys?.sunrise} sunset={data?.sys?.sunset} />
+			<SunData sunrise={data.sys.sunrise} sunset={data.sys.sunset} />
 		</>
 	}
 
