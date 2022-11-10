@@ -1,6 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import * as S from './styles';
+const Select = styled.select`
+	padding: var(--size-sm);
+
+	border: none;
+	box-shadow: 1px 1px 4px black;
+`;
+
+const Option = styled.option``;
 
 const citiesOptions = [
 	{ label: 'London', value: 'london' },
@@ -14,11 +22,11 @@ type SelectCitiesProps = {
 
 export const SelectCities = ({ handleSelectChange }: SelectCitiesProps) => {
 	return (
-		<S.Select defaultValue="none" onChange={(e) => handleSelectChange(e.target.value)}>
-			<S.Option value="none" disabled hidden>Select a city</S.Option>
+		<Select defaultValue="none" onChange={(e) => handleSelectChange(e.target.value)}>
+			<Option value="none" disabled hidden>Select a city</Option>
 			{citiesOptions.map(({ label, value }) => (
-				<S.Option key={value} value={value}>{label}</S.Option>
+				<Option key={value} value={value}>{label}</Option>
 			))}
-		</S.Select>
+		</Select>
 	);
 };

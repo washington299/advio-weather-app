@@ -1,11 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import * as S from './styles';
+const Content = styled.header`
+	padding: var(--size-md) 0;
+	font-size: var(--size-lg);
+	background-color: var(--dark-gray);
+	color: var(--white);
+	text-align: center;
+`;
 
 export const Header = () => {
 	return (
-		<S.Content>
+		<Content>
 			<div>Weather app</div>
-		</S.Content>
+		</Content>
 	);
 };

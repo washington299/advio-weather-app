@@ -1,11 +1,37 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import { SelectCities, TemperatureSwitch, WeatherValue, SunData } from 'components';
 
 import { useGetCityWeather } from 'services/queries';
 
-import * as S from './styles';
 import * as GE from 'styles/globalElements';
+
+const Content = styled.main`
+	margin: var(--size-lg) 0;
+`;
+
+const HeaderWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+
+const DataWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin-top: calc(var(--size-xl2) * 3);
+`;
+
+const DefaultText = styled.p`
+	font-size: var(--size-lg);
+	color: var(--white);
+`;
+
+const Icon = styled.img`
+	margin-top: var(--size-xl2);
+`;
 
 export const Main = () => {
 	const [isCelsius, setIsCelsius] = useState(true);
@@ -28,30 +54,30 @@ export const Main = () => {
 	};
 
 	return (
-		<S.Content>
-			<S.HeaderWrapper>
+		<Content>
+			<HeaderWrapper>
 				<SelectCities handleSelectChange={handleSelectChange} />
 				<TemperatureSwitch disabled={!mutation?.data} handleSwitchChange={handleSwitchChange} />
-			</S.HeaderWrapper>
+			</HeaderWrapper>
 
-			<S.DataWrapper>
+			<DataWrapper>
 				{mutation.isLoading ? <GE.Spinner role="spinbutton" /> : (
 					<>
 						{!!mutation?.data ? (
 							<>
 								<WeatherValue value={mutation.data?.main?.temp} isCelsius={isCelsius} />
-								<S.Icon
+								<Icon
 									src={`http://openweathermap.org/img/wn/${mutation.data?.weather[0]?.icon}@2x.png`}
 									alt="Weather icon"
 								/>
 								<SunData sunrise={mutation.data?.sys?.sunrise} sunset={mutation.data?.sys?.sunset} />
 							</>
 						) : (
-							<S.DefaultText>No city selected.</S.DefaultText>
+							<DefaultText>No city selected.</DefaultText>
 						)}
 					</>
 				)}
-			</S.DataWrapper>
-		</S.Content>
+			</DataWrapper>
+		</Content>
 	);
 };
