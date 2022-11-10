@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ErrorBoundary } from 'react-error-boundary'
 
-import { SelectCities, TemperatureSwitch, WeatherValue, SunData } from 'components';
+import { SelectCities, TemperatureSwitch, WeatherValue, SunData, ErrorFallback } from 'components';
 
 import { useGetCityWeather } from 'services/queries';
 
@@ -65,14 +66,16 @@ export const Main = () => {
 
 	return (
 		<Content>
-			<HeaderWrapper>
-				<SelectCities handleSelectChange={handleSelectChange} />
-				<TemperatureSwitch disabled={!data} handleSwitchChange={handleSwitchChange} />
-			</HeaderWrapper>
+			<ErrorBoundary FallbackComponent={ErrorFallback}>
+				<HeaderWrapper>
+					<SelectCities handleSelectChange={handleSelectChange} />
+					<TemperatureSwitch disabled={!data} handleSwitchChange={handleSwitchChange} />
+				</HeaderWrapper>
 
-			<DataWrapper>
-				{content}
-			</DataWrapper>
+				<DataWrapper>
+					{content}
+				</DataWrapper>
+			</ErrorBoundary>
 		</Content>
 	);
 };
