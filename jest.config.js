@@ -11,6 +11,7 @@ module.exports = {
 		"!src/App.tsx",
 		"!src/index.tsx",
 		"!src/react-app-env.d.ts",
+		"!src/types/**",
 		"!src/components/index.ts",
 		"!src/styles/**/*.{ts,tsx}",
 		"!src/services/**/*.{ts,tsx}",
