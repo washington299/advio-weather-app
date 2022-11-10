@@ -57,7 +57,7 @@ describe('<Main />', () => {
 
 		fireEvent.click(screen.getByRole('switch'));
 
-		expect(screen.getByText('20 °F')).toBeInTheDocument();
+		expect(screen.getByText('68 °F')).toBeInTheDocument();
 	});
 
 	it('Should display correct data when mutation data has a response', async () => {

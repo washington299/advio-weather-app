@@ -5,6 +5,8 @@ import { SelectCities, TemperatureSwitch, WeatherValue, SunData } from 'componen
 
 import { useGetCityWeather } from 'services/queries';
 
+import { convertCelsiusToFahrenheit } from 'utils/convertCelsiusToFahrenheit';
+
 import * as GE from 'styles/globalElements';
 
 const Content = styled.main`
@@ -40,18 +42,11 @@ export const Main = () => {
 	const { mutate, data, isLoading } = useGetCityWeather();
 
 	const handleSelectChange = (selectedCity: string) => {
-		const payload = { city: selectedCity, isCelsius };
-		mutate(payload);
-
+		mutate(selectedCity);
 		setCity(selectedCity);
 	};
 
-	const handleSwitchChange = (value: boolean) => {
-		const payload = { city, isCelsius: !value };
-		mutate(payload);
-
-		setIsCelsius(!value);
-	};
+	const handleSwitchChange = (value: boolean) => setIsCelsius(!value);
 
 	let content: React.ReactNode;
 
@@ -59,7 +54,10 @@ export const Main = () => {
 	if (isLoading) { content = <GE.Spinner role="spinbutton" /> }
 	if (data) {
 		content = <>
-			<WeatherValue value={data?.main?.temp} isCelsius={isCelsius} />
+			<WeatherValue
+				value={isCelsius ? data?.main?.temp : convertCelsiusToFahrenheit(data?.main?.temp)}
+				isCelsius={isCelsius}
+			/>
 			<Icon
 				src={`http://openweathermap.org/img/wn/${data?.weather[0]?.icon}@2x.png`}
 				alt="Weather icon"
